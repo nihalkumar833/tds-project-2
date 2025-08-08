@@ -1,4 +1,4 @@
-# 📊 Multi-Modal Data Analysis API v2.0
+# 📊 Multi-Modal Data Analysis API v1.0
 
 <!-- Core Stack -->
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.110+-009688?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
