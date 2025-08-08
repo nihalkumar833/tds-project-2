@@ -73,11 +73,58 @@ POST /api/
 
 Example:
 
+# 📊 Multi-Modal Data Analysis API v1.0
+
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.110+-009688?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
+[![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?logo=docker&logoColor=white)](https://www.docker.com/)
+[![Python](https://img.shields.io/badge/Python-3.10+-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
+
+> 🚀 AI-powered API for text, image, and code analysis — upload your files & get **instant insights**.
+
+---
+
+## ✨ Features
+- 📂 **Multiple file uploads** (CSV, images, JSON…)
+- 📝 **Required:** `questions.txt` with your analysis questions
+- ⚡ **Synchronous processing** — results in ≤ 3 min
+- 🤖 **AI workflow detection** (no manual config)
+- 📊 **10+ ready-to-use workflows**
+- 🛠 **FastAPI + LangChain + OpenAI/Gemini support**
+
+---
+
+## 🗂 Available Workflows
+| Workflow ID | Purpose |
+|-------------|---------|
+| `data_analysis` | General analysis & recommendations |
+| `image_analysis` | Computer vision tasks |
+| `text_analysis` | Natural language processing |
+| `code_generation` | Python code creation |
+| `exploratory_data_analysis` | EDA planning & execution |
+| `predictive_modeling` | Machine learning guidance |
+| `data_visualization` | Charts & graphs |
+| `statistical_analysis` | Stats & correlations |
+| `web_scraping` | Web data extraction |
+| `database_analysis` | SQL & DuckDB queries |
+
+---
+
+## 🔌 API Endpoints
+| Method | Endpoint   | Description |
+|--------|-----------|-------------|
+| POST   | `/api/`   | Submit analysis tasks (upload files) |
+| GET    | `/health` | Health check |
+| GET    | `/`       | API info |
+
+---
+
+## 📥 Example Request (cURL)
 ```bash
 curl "http://localhost:8000/api/" \
-  -F "questions_txt=@questions.txt" \
-  -F "files=@data.csv" \
-  -F "files=@image.png"
+-F "questions_txt=@questions.txt" \
+-F "files=@data.csv" \
+-F "files=@image.png"
 ```
 
 ### Health Check
@@ -87,8 +134,10 @@ GET /health
 ```
 
 ## VM Setup & Installation (Linux)
+````
 
 Follow these steps to set up a fresh VM and run the project:
+---
 
 ```bash
 # Update system packages
@@ -123,31 +172,40 @@ bash run_docker.sh
 ```
 
 ## Quick Start
+## 🖥 Local Setup
 
 1. **Install dependencies:**
+### 1️⃣ Install dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
 2. **Set up environment variables:**
+### 2️⃣ Configure environment
 
 ```bash
 cp .env.template .env
 # Edit .env and add your OpenAI API key
+# Open .env and add your API keys
 ```
 
 3. **Start the server (development):**
+### 3️⃣ Run locally
 
 ```bash
 uvicorn main:app --reload
 ```
 
 4. **Build and run with Docker:**
+---
+
+## 🐳 Docker Deployment
 
 ```bash
 bash run_docker.sh
 # Or manually:
+# Build the image
 docker build -t data-analysis-api .
 docker run -d --name data-analysis-api-container -p 8000:80 --env-file .env data-analysis-api
 ```
@@ -158,13 +216,17 @@ docker run -d --name data-analysis-api-container -p 8000:80 --env-file .env data
 python test_api.py              # Basic tests
 python test_file_upload_api.py  # File upload tests
 python test_langchain_api.py    # LangChain workflow tests
+# Run the container
+docker run -d -p 8000:80 --env-file .env data-analysis-api
 ```
 
 6. **Test in browser:**
 
 - Open `http://84.247.184.189:8000/static/test_upload.html` in your browser for a user-friendly file upload and workflow interface.
+---
 
 ## Available Workflows
+## 🌍 VM Deployment (Linux)
 
 - **Data Analysis**: General analysis and recommendations
 - **Code Generation**: Python code for data analysis tasks  
@@ -184,11 +246,23 @@ python test_langchain_api.py    # LangChain workflow tests
 - `GET /api/capabilities` - Available workflows and features
 
 ## Example Usage
+```bash
+sudo apt-get update && sudo apt-get upgrade -y
+sudo apt-get install -y git docker.io vim python3 python3-pip
+sudo systemctl enable docker && sudo systemctl start docker
+git clone https://github.com/USERNAME/REPO.git
+cd REPO/Project2
+cp .env.template .env
+vim .env   # Add your API keys
+bash run_docker.sh
+```
 
 ### Python (basic analysis)
+---
 
 ```python
 import requests
+## 🔍 Test in Browser
 
 # Basic analysis
 response = requests.post("http://localhost:8000/api/analyze", json={
@@ -200,26 +274,40 @@ response = requests.post("http://localhost:8000/api/analyze", json={
         "sample_size": 7043
     }
 })
+* Upload files: **`https://tds-project-2-production.up.railway.app/static/test_upload.html`**
+* Health check: **`https://tds-project-2-production.up.railway.app/health`**
 
 task_id = response.json()["task_id"]
+---
 
 # Check status
 status = requests.get(f"http://localhost:8000/api/tasks/{task_id}/status")
 print(status.json())
 ```
+## ⚙ Environment Variables
 
 ### Curl (file upload)
+| Name                   | Required | Description              |
+| ---------------------- | -------- | ------------------------ |
+| `OPENAI_API_KEY`       | ✅ Yes    | Your OpenAI API key      |
+| `GEMINI_API_KEY`       | ✅ Yes    | Your OpenAI API key      |
+| `LANGCHAIN_API_KEY`    | ❌ No     | For LangSmith tracing    |
+| `LANGCHAIN_TRACING_V2` | ❌ No     | Enable LangSmith tracing |
 
 ```bash
 curl "http://84.247.184.189:8000/api/" -F "file=@question.txt" -F "workflow_type=data_analysis"
 ```
+---
 
 ## Configuration
+## 📜 License
 
 Required environment variables:
+This project is licensed under the [MIT License](LICENSE).
 
 - `OPENAI_API_KEY` - Your OpenAI API key (required)
 - `LANGCHAIN_TRACING_V2` - Enable LangSmith tracing (optional)
 - `LANGCHAIN_API_KEY` - LangSmith API key (optional)
+---
 
 See `LANGCHAIN_GUIDE.md` for detailed documentation.
