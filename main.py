@@ -9,8 +9,7 @@ import asyncio
 import logging
 import os
 import sys
-import aiofiles
-
+import aiofiles #update rewuirements.txt also otherwise server will crashed
 # ==== Import your project modules ====
 from utils.prompts import WORKFLOW_DETECTION_SYSTEM_PROMPT, WORKFLOW_DETECTION_HUMAN_PROMPT
 from utils.constants import (
