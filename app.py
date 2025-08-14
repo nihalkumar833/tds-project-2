@@ -2654,23 +2654,9 @@ async def system_diagnostics(
 
     return results
 
-from fastapi import FastAPI, Response
-from fastapi.responses import FileResponse
-import os
-import base64
-
-app = FastAPI()
-
-# Tiny transparent PNG
-FALLBACK_PNG = base64.b64decode(
-    "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO3n+9QAAAAASUVORK5CYII="
-)
-
-@app.get("/favicon.ico")
+@app.get("/favicon")
 async def favicon():
-    if os.path.exists("favicon.ico"):
-        return FileResponse("favicon.ico", media_type="image/x-icon")
-    return Response(FALLBACK_PNG, media_type="image/png")
+    return {"status": "ok"}
 
 
 
