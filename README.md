@@ -154,15 +154,15 @@ docker build -t multi-modal-api .
 docker run --rm -d -p 8000:8000 --init --ipc=host --env-file .env multi-modal-api
 ```
 
-For direct ASGI serving without Docker, see FastAPI deployment concepts and manual server docs; typically use Gunicorn with Uvicorn workers in production.[2][3][4]
+For direct ASGI serving without Docker, see FastAPI deployment concepts and manual server docs; typically use Gunicorn with Uvicorn workers in production.
 
 ***
 
 ## 🔍 Test in Browser
 
-- Health check: http://localhost:8000/health[7]
-- Routes: http://localhost:8000/[7]
-- Swagger UI (if enabled by your setup): http://localhost:8000/docs[1]
+- Health check: http://localhost:8000/health
+- Routes: http://localhost:8000/
+- Swagger UI (if enabled by your setup): http://localhost:8000/docs
 
 ***
 
@@ -170,11 +170,11 @@ For direct ASGI serving without Docker, see FastAPI deployment concepts and manu
 
 | Name                     | Required | Description |
 |--------------------------|----------|-------------|
-| OPENAI_API_KEY           | Optional | Used for OpenAI fallback in code generation and Q&A[7] |
-| gemini_api_1..gemini_api_10 | Optional | Gemini multi-key rotation for task breaking and extraction[7] |
-| OCR_API_KEY              | Optional | OCR.space key for image/PDF text extraction[7] |
-| HORIZON_API              | Optional | Custom integration key (if used by your flows)[7] |
-| GROK_API, GROK_FIX_API   | Optional | Custom integration keys (if used by your flows)[7] |
+| OPENAI_API_KEY           | Required | Used for OpenAI fallback in code generation and Q&A  |
+| gemini_api_1..gemini_api_10 | Required | Gemini multi-key rotation for task breaking and extraction |
+| OCR_API_KEY              | Required | OCR.space key for image/PDF text extraction |
+| HORIZON_API              | Optional | Custom integration key (if used by your flows) |
+| GROK_API, GROK_FIX_API   | Optional | Custom integration keys (if used by your flows) |
 
 Note: If Java is missing, PDF extraction will be disabled/fail at runtime; ensure Java 8+ is installed for tabula-py.[6]
 
@@ -204,4 +204,5 @@ This project is licensed under the MIT License. See LICENSE.
 
 
 ***
+
 
