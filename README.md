@@ -1,7 +1,24 @@
 # 📊 Multi-Modal Data Analysis API v1.0
 
-[![FastAPI](https://img.shields.io/badge/FastAPI-0.116%2B-009688?logo=3]
-[![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white.shields.io/badge/Uvicorn://fastapi.tiangolo.com/dewright](https://img.shields.io/badge/Playwright-1.54-blue?logo=microsoftedge&logoColorula](https://img.shields.io/badge/tabula--py-Java%208%://tabula-py.readthedocs.io/en/latest/getting_started://img.shields.io/badge/DuckDB-HTTPFS%20%26%20Parquetdas](https://img.shields.io/badge/Pandas-2.3%2B-150458?logo=pandas&logoColor=whiteields.io/badge/NumPy-2.2%2B-013243?logo=numpy&logops://img.shields.io/badge/Docker-Ready-2496ED?logo=dockerplaywright.dev/docs/docker](https://img.shields.io/bb](https://img.shields.io/badge/GitHub-Repo AI-powered API for text, image, PDF, web, and database analysis — upload files or provide URLs and get structured JSON insights.
+<!-- Core Stack -->
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.116%2B-009688?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
+[![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![Uvicorn](https://img.shields.io/badge/Uvicorn-ASGI%20Server-499848)](https://www.uvicorn.org/)
+
+<!-- Playwright -->
+[![Playwright](https://img.shields.io/badge/Playwright-1.54-blue?logo=microsoftedge&logoColor=white)](https://playwright.dev/docs/docker)
+
+<!-- Data & Tools -->
+[![Pandas](https://img.shields.io/badge/Pandas-2.3%2B-150458?logo=pandas&logoColor=white)](https://pandas.pydata.org/)
+[![NumPy](https://img.shields.io/badge/NumPy-2.2%2B-013243?logo=numpy&logoColor=white)](https://numpy.org/)
+[![DuckDB](https://img.shields.io/badge/DuckDB-HTTPFS%20%26%20Parquet-ffc107?logo=duckdb&logoColor=000)](https://duckdb.org/)
+[![tabula-py](https://img.shields.io/badge/tabula--py-Java%208%2B-ff6f00)](https://tabula-py.readthedocs.io/en/latest/getting_started.html)
+[![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?logo=docker&logoColor=white)](https://www.docker.com/)
+
+<!-- License & Repo -->
+[![MIT License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
+[![GitHub](https://img.shields.io/badge/GitHub-Repo-181717?logo=github&logoColor
+
 
 ***
 
@@ -184,5 +201,6 @@ Note: If Java is missing, PDF extraction will be disabled/fail at runtime; ensur
 ## 📜 License
 
 This project is licensed under the MIT License. See LICENSE.
+
 
 ***
