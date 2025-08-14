@@ -2136,83 +2136,12 @@ def _now_iso():
     return datetime.datetime.now().isoformat(timespec="seconds")
 
 @app.get("/")
-async def list_routes(include_docs: bool = Query(False, description="Include FastAPI docs routes (/docs, /redoc, /openapi.json)")):
-    """
-    List all registered routes with summary and description.
-    Add ?include_docs=true to include OpenAPI/Docs routes.
-    """
-    routes_info = []
-    for route in app.routes:
-        if not isinstance(route, APIRoute):
-            continue
-        is_doc = route.path in ("/openapi.json", "/docs", "/redoc")
-        if (not include_docs) and is_doc:
-            continue
-        routes_info.append({
-            "path": route.path,
-            "methods": sorted(list(route.methods)),
-            "name": route.name,
-            "summary": route.summary or "",
-            "description": route.description or ""
-        })
-
-    # Group routes by method for quick scanning
-    by_method = {}
-    for r in routes_info:
-        for m in r["methods"]:
-            by_method.setdefault(m, 0)
-            by_method[m] += 1
-
-    return {
-        "status": "ok",
-        "server_time": _now_iso(),
-        "host": socket.gethostname(),
-        "python": sys.version.split()[0],
-        "fastapi": "0.116.1",
-        "routes_count": len(routes_info),
-        "routes_by_method": by_method,
-        "routes": routes_info,
-        "hint": "Add ?include_docs=true to include FastAPI docs and OpenAPI routes"
-    }
-
+async def home():
+    return {"status": "ok", "message": "Service is running"}
 
 @app.get("/health")
-async def health_check(verbose: bool = Query(True, description="Include detailed system and config info when true")):
-    """
-    Detailed health check with system, process, and key/config diagnostics.
-    """
-    try:
-        process = psutil.Process(os.getpid())
-        mem_info = process.memory_info()
-        cpu_pct = process.cpu_percent(interval=0.1)
-
-        info = {
-            "status": "ok",
-            "app_name": "AI Analyst Service",
-            "server_time": _now_iso(),
-            "host": socket.gethostname(),
-            "python_version": platform.python_version(),
-            "platform": platform.platform(),
-            "process_id": os.getpid(),
-            "uptime_seconds": int((datetime.datetime.now() - datetime.datetime.fromtimestamp(process.create_time())).total_seconds()),
-            "memory_usage_mb": round(mem_info.rss / 1024 / 1024, 2),
-            "cpu_percent": cpu_pct,
-        }
-
-        if verbose:
-            info.update({
-                "gemini_keys_count": len(GEMINI_KEYS),
-                "gemini_keys_loaded": bool(GEMINI_KEYS),
-                "openai_key_loaded": bool(OPENAI_KEY),
-                "openai_key_masked": _mask(OPENAI_KEY),
-                "ocr_api_key_loaded": bool(ocr_api_key),
-                "ocr_api_url": OCR_API_URL,
-                "routes_count": len([r for r in app.routes if isinstance(r, APIRoute)]),
-            })
-        return info
-
-    except Exception as e:
-        return {"status": "error", "error": str(e), "server_time": _now_iso()}
+async def health_check():
+    return {"status": "ok"}
 
 
 @app.get("/test_gemini")
