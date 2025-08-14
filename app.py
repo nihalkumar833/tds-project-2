@@ -348,10 +348,34 @@ async def ping_gemini(question_text, relevant_context=""):
 
 async def ping_gemini_pro(question_text, relevant_context=""):
     """
-    Calls ping_gemini() — Pro model is first in MODEL_HIERARCHY,
-    so we just reuse the same logic.
+    Calls ping_gemini(), but extracts the text so we safely return a string,
+    not the raw dict. This way downstream code can call .split('\n') without crashing.
     """
-    return await ping_gemini(question_text, relevant_context)
+    resp = await ping_gemini(question_text, relevant_context)
+
+    # If response is already a string (unlikely), just return it
+    if isinstance(resp, str):
+        return resp
+
+    # If response is a dict from Gemini, try to extract the generated code text
+    if isinstance(resp, dict):
+        try:
+            return resp["candidates"][0]["content"]["parts"][0]["text"]
+        except (KeyError, IndexError, TypeError):
+            # If extraction fails, fallback to JSON string for debugging
+            return json.dumps(resp)
+
+    # Fallback: convert anything else to string
+    return str(resp)
+
+
+# async def ping_gemini_pro(question_text, relevant_context=""):
+#     """
+#     Calls ping_gemini() — Pro model is first in MODEL_HIERARCHY,
+#     so we just reuse the same logic.
+#     """
+#     return await ping_gemini(question_text, relevant_context)
+
 
 
 # async def ping_chatgpt(question_text, relevant_context=""):
