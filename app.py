@@ -2654,7 +2654,21 @@ async def system_diagnostics(
 
     return results
 
+# 1×1 transparent PNG fallback (if favicon.ico file not present)
+_FAVICON_FALLBACK_PNG = base64.b64decode(
+    "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO3n+9QAAAAASUVORK5CYII="
+)
 
+@app.get("/favicon.ico", include_in_schema=False)
+async def favicon():
+    """
+    Serve favicon.ico if present in the working directory.
+    Otherwise return a tiny transparent PNG to avoid 404s.
+    """
+    path = "favicon.ico"
+    if os.path.exists(path):
+        return FileResponse(path, media_type="image/x-icon")
+    return Response(content=_FAVICON_FALLBACK_PNG, media_type="image/png")
 
 
 if __name__ == "__main__":
