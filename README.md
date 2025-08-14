@@ -1,211 +1,281 @@
-# 📊 Multi-Modal Data Analysis API v1.0
+# 🤖 TDS Data Analyst Agent
 
-<!-- Core Stack -->
-[![FastAPI](https://img.shields.io/badge/FastAPI-0.116%2B-009688?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
-[![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/)
-[![Uvicorn](https://img.shields.io/badge/Uvicorn-ASGI%20Server-499848)](https://www.uvicorn.org/)
+A powerful AI-driven data analysis platform that combines the capabilities of Google's Generative AI with advanced data processing tools to provide intelligent insights, visualizations, and automated analysis workflows.
 
-<!-- Playwright -->
-[![Playwright](https://img.shields.io/badge/Playwright-1.54-blue?logo=microsoftedge&logoColor=white)](https://playwright.dev/docs/docker)
+## 📊 Overview
 
-<!-- Data & Tools -->
-[![Pandas](https://img.shields.io/badge/Pandas-2.3%2B-150458?logo=pandas&logoColor=white)](https://pandas.pydata.org/)
-[![NumPy](https://img.shields.io/badge/NumPy-2.2%2B-013243?logo=numpy&logoColor=white)](https://numpy.org/)
-[![DuckDB](https://img.shields.io/badge/DuckDB-HTTPFS%20%26%20Parquet-ffc107?logo=duckdb&logoColor=000)](https://duckdb.org/)
-[![tabula-py](https://img.shields.io/badge/tabula--py-Java%208%2B-ff6f00)](https://tabula-py.readthedocs.io/en/latest/getting_started.html)
-[![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?logo=docker&logoColor=white)](https://www.docker.com/)
+The TDS Data Analyst Agent is a web-based application that transforms how you interact with data. Upload your datasets and questions, and receive comprehensive analysis with interactive visualizations, statistical insights, and AI-powered recommendations.
 
-<!-- License & Repo -->
-[![MIT License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
-[![GitHub](https://img.shields.io/badge/GitHub-Repo-181717?logo=github&logoColor)
+### Key Features
 
+- **🔍 Intelligent Data Analysis**: AI-powered insights using Google's Generative AI
+- **📈 Interactive Visualizations**: Dynamic charts and graphs using Matplotlib and Seaborn
+- **🌐 Web Scraping**: Extract data from URLs and web pages
+- **📁 Multi-Format Support**: CSV, Excel, JSON, Parquet, and text files
+- **🔄 Batch Processing**: Analyze multiple questions simultaneously
+- **🎨 Modern UI**: Beautiful, responsive web interface
+- **⚡ Real-time Processing**: Fast analysis with progress tracking
 
-***
+## 🚀 Quick Start
 
-## ✨ Features
+### Prerequisites
 
-- 📂 Multiple file uploads: CSV, JSON, HTML, PDF, images, archives (ZIP/TAR) parsed automatically.[7][8]
-- 📝 Accepts free-text questions or questions.txt to drive the workflow.[8][7]
-- 🌐 Web scraping via Playwright with stealth and HTML table extraction.[8][5]
-- 📄 PDF table extraction and grouping via tabula-py (Java required).[7][6]
-- 🧮 Numeric column auto-cleaning (currencies, percentages, scientific) with LLM guidance and heuristics.[8]
-- 🗃 DuckDB schema preview and tiny samples for CSV/JSON/Parquet/HTTP/S3 sources.[7]
-- 🔁 Multi-provider LLM fallback: Gemini→OpenAI for task breaking and code generation.[7][8]
-- 🩺 Built-in health and provider test endpoints (/health, /test_gemini, /test_openai_call).[7]
-- 🧱 Archive-safe extraction with path traversal guards and categorization.[7]
+- Python 3.8 or higher
+- Google Generative AI API key
+- Modern web browser
 
-***
+### Installation
 
-## 🗂 Available Workflows
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd Project_2
+   ```
 
-| Workflow ID | Purpose |
-|-------------|---------|
-| data_analysis | General analysis & recommendations from uploaded or scraped tabular data[7][8] |
-| text_analysis | Extract OCR text and augment questions for analysis[7] |
-| web_scraping | Extract main data table(s) from target pages and save CSVs[8] |
-| pdf_table_extraction | Extract, group, and merge tables from PDFs[7] |
-| database_analysis | Lightweight schema/sample introspection via DuckDB for CSV/JSON/Parquet/HTTP/S3[7] |
-| code_generation | LLM-generated Python analysis script with constrained execution[7] |
+2. **Install dependencies**
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-Note: Heavy tasks may be slow locally; for production hardening see Deployment notes below.[2][3][6][5]
+3. **Set up environment variables**
+   Create a `.env` file in the project root:
+   ```env
+   GOOGLE_API_KEY=your_google_generative_ai_api_key_here
+   LLM_TIMEOUT_SECONDS=150
+   ```
 
-***
+4. **Run the application**
+   ```bash
+   python app.py
+   ```
 
-## 🔌 API Endpoints
+5. **Access the application**
+   Open your browser and navigate to `http://localhost:8000`
 
-| Method | Endpoint     | Description |
-|--------|--------------|-------------|
-| POST   | /api/        | Submit analysis tasks with file uploads and/or text |
-| GET    | /health      | System/process metrics and key config diagnostics |
-| GET    | /            | Route listing and service info |
-| GET    | /test_gemini_pro | Test Gemini multi-key/multi-model path |
-| GET    | /test_gemini | Test Gemini multi-key/Pro-model path |
-| GET    | /test_openai_call | Test OpenAI client fallback path |
-| GET    | /test_ocr_call | Minimal live OCR call diagnostics |
-| GET    | /system_diagnostics | Ultra-Advanced Project Diagnostics |
+## 📖 Usage Guide
 
-***
+### 1. Prepare Your Questions
+Create a text file (`.txt`) with your analysis questions. Each question should be on a separate line:
 
-## 📥 Example Request (cURL)
-
-```bash
-curl "http://localhost:8000/api/" \
-  -F "questions=@questions.txt" \
-  -F "files=@data.csv" \
-  -F "files=@report.pdf" \
-  -F "files=@archive.zip"
+```
+What are the key trends in the sales data?
+Which products have the highest profit margins?
+Show me a correlation analysis between variables A and B
 ```
 
-- Optional: send no files and just a question text body; the service can extract URLs and attempt scraping where appropriate.[8][7]
-- For images/PDFs, OCR and tabula are used if configured and available.
+### 2. Upload Your Data
+- **Questions File**: Required - Your analysis questions in `.txt` format
+- **Dataset**: Optional - Your data in CSV, Excel, JSON, Parquet, or text format
 
-***
+### 3. Get Results
+The agent will:
+- Process your questions and data
+- Generate comprehensive analysis
+- Create interactive visualizations
+- Provide AI-powered insights and recommendations
 
-## 🖥 Local Setup
+## 🛠️ Technical Architecture
 
-### 1️⃣ Install system dependencies
-- Java 8+ required for tabula-py.
-- Optional Playwright browsers: see Docker or run playwright install inside venv.
+### Backend Stack
+- **FastAPI**: High-performance web framework
+- **LangChain**: LLM orchestration and tool integration
+- **Google Generative AI**: Advanced AI capabilities
+- **Pandas & NumPy**: Data manipulation and analysis
+- **Matplotlib & Seaborn**: Data visualization
 
+### Frontend
+- **HTML5/CSS3**: Modern, responsive interface
+- **JavaScript**: Interactive user experience
+- **Bootstrap-inspired styling**: Professional appearance
+
+### Data Processing Capabilities
+- **File Formats**: CSV, Excel, JSON, Parquet, TXT
+- **Web Scraping**: HTML tables, API endpoints
+- **Data Cleaning**: Automatic preprocessing
+- **Statistical Analysis**: Descriptive and inferential statistics
+
+## 🔧 API Endpoints
+
+### Core Endpoints
+
+#### `GET /`
+- **Description**: Serve the main web interface
+- **Response**: HTML frontend
+
+#### `POST /analyze`
+- **Description**: Process questions and data for analysis
+- **Parameters**:
+  - `questions_file`: Text file with analysis questions
+  - `data_file`: Optional dataset file
+- **Response**: JSON with analysis results and visualizations
+
+#### `POST /scrape`
+- **Description**: Extract data from web URLs
+- **Parameters**:
+  - `url`: Target URL to scrape
+- **Response**: JSON with extracted data
+
+### Tool Functions
+
+#### `scrape_url_to_dataframe(url)`
+Extracts data from web pages, supporting:
+- HTML tables
+- CSV files
+- Excel files
+- JSON data
+- Plain text
+
+#### `analyze_dataframe_with_llm(data, questions)`
+Performs AI-powered analysis on datasets with:
+- Statistical summaries
+- Trend analysis
+- Correlation studies
+- Anomaly detection
+- Predictive insights
+
+## 📊 Supported Data Formats
+
+| Format | Extension | Description |
+|--------|-----------|-------------|
+| CSV | `.csv` | Comma-separated values |
+| Excel | `.xlsx`, `.xls` | Microsoft Excel files |
+| JSON | `.json` | JavaScript Object Notation |
+| Parquet | `.parquet` | Columnar storage format |
+| Text | `.txt` | Plain text files |
+
+## 🎯 Use Cases
+
+### Business Intelligence
+- Sales performance analysis
+- Customer behavior insights
+- Market trend identification
+- Financial data analysis
+
+### Research & Analytics
+- Academic research support
+- Statistical analysis
+- Data exploration
+- Hypothesis testing
+
+### Data Science
+- Exploratory data analysis
+- Feature engineering insights
+- Model performance evaluation
+- Data quality assessment
+
+## 🔒 Security & Privacy
+
+- **Local Processing**: Data is processed locally on your server
+- **No Data Storage**: Files are processed in memory and not stored
+- **API Key Protection**: Secure environment variable handling
+- **CORS Configuration**: Configurable cross-origin resource sharing
+
+## 🚀 Deployment
+
+### Local Development
 ```bash
-# Ubuntu/Debian (Java + build essentials)
-sudo apt-get update
-sudo apt-get install -y default-jre build-essential python3-dev libssl-dev libxml2-dev libxslt-dev zlib1g-dev
+python app.py
 ```
 
-### 2️⃣ Create environment and install Python deps
+### Production Deployment
+1. Set up a production server (AWS, GCP, Azure, etc.)
+2. Install dependencies: `pip install -r requirements.txt`
+3. Configure environment variables
+4. Use a production WSGI server like Gunicorn:
+   ```bash
+   gunicorn app:app -w 4 -k uvicorn.workers.UvicornWorker
+   ```
+
+### Docker Deployment
+```dockerfile
+FROM python:3.9-slim
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+COPY . .
+EXPOSE 8000
+CMD ["python", "app.py"]
+```
+
+## 📝 Configuration
+
+### Environment Variables
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `GOOGLE_API_KEY` | Google Generative AI API key | Required |
+| `LLM_TIMEOUT_SECONDS` | Timeout for LLM operations | 150 |
+
+### Customization Options
+- Modify visualization styles in the frontend CSS
+- Adjust analysis parameters in the tool functions
+- Configure CORS settings for production deployment
+- Customize the LLM prompt templates
+
+## 🤝 Contributing
+
+We welcome contributions! Please follow these steps:
+
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature-name`
+3. Make your changes and add tests
+4. Commit your changes: `git commit -am 'Add feature'`
+5. Push to the branch: `git push origin feature-name`
+6. Submit a pull request
+
+### Development Setup
 ```bash
-python3 -m venv .venv
-source .venv/bin/activate
-pip install --upgrade pip
+# Install development dependencies
 pip install -r requirements.txt
+
+# Run tests (when available)
+python -m pytest
+
+# Format code
+black app.py
 ```
 
-### 3️⃣ Configure environment
-```bash
-cp .env.template .env
-# Edit .env and add your API keys (e.g., OPENAI_API_KEY, gemini_api_1, OCR_API_KEY)
-```
+## 📄 License
 
-### 4️⃣ Run locally (development)
-```bash
-uvicorn app:app --reload --host 0.0.0.0 --port 8000
-```
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-Production guidance recommends running behind a process manager (e.g., Gunicorn with multiple Uvicorn workers).[3][2][4]
+## 🆘 Support & Troubleshooting
 
-***
+### Common Issues
 
-## 🐳 Docker (with Playwright/Chromium)
+**API Key Error**
+- Ensure your Google Generative AI API key is correctly set in the `.env` file
+- Verify the API key has the necessary permissions
 
-Running Playwright in containers benefits from specific flags: use --init to avoid zombies and --ipc=host for Chromium stability; prefer non-root user to preserve sandboxing.[5]
+**File Upload Issues**
+- Check file format compatibility
+- Ensure file size is within limits
+- Verify file encoding (UTF-8 recommended)
 
-```bash
-# Example Dockerfile base (outline)
-# FROM mcr.microsoft.com/playwright:v1.54.0-noble
-# RUN apt-get update && apt-get install -y default-jre && rm -rf /var/lib/apt/lists/*
-# WORKDIR /app
-# COPY requirements.txt .
-# RUN pip install --no-cache-dir -r requirements.txt
-# COPY . .
-# EXPOSE 8000
-# CMD ["gunicorn","-k","uvicorn.workers.UvicornWorker","-w","4","-t","120","app:app","--bind","0.0.0.0:8000"]
+**Analysis Timeout**
+- Increase `LLM_TIMEOUT_SECONDS` in your `.env` file
+- Consider breaking large datasets into smaller chunks
 
-# Build
-docker build -t multi-modal-api .
+### Getting Help
+- Check the [Issues](../../issues) page for known problems
+- Create a new issue for bugs or feature requests
+- Review the code documentation for technical details
 
-# Run (Playwright recommendations)
-docker run --rm -p 8000:8000 --init --ipc=host --env-file .env multi-modal-api
-```
+## 🔮 Roadmap
 
-- If running browsers as root, Chromium sandbox is disabled; to keep sandboxing, run as non-root user in the image.[5]
-- Ensure Java is present for tabula-py in the image.[6]
+### Upcoming Features
+- [ ] Real-time collaboration
+- [ ] Advanced statistical models
+- [ ] Custom visualization templates
+- [ ] API rate limiting and caching
+- [ ] Multi-language support
+- [ ] Mobile application
 
-***
+### Version History
+- **v1.0.0**: Initial release with core analysis capabilities
+- **v1.1.0**: Added web scraping functionality
+- **v1.2.0**: Enhanced visualization options
 
-## 🌍 VM Deployment (Linux)
+---
 
-```bash
-sudo apt-get update && sudo apt-get upgrade -y
-sudo apt-get install -y git docker.io python3 python3-pip default-jre
-sudo systemctl enable docker && sudo systemctl start docker
-git clone https://github.com/USERNAME/REPO.git
-cd REPO
-cp .env.template .env && nano .env   # Add API keys
-docker build -t multi-modal-api .
-docker run --rm -d -p 8000:8000 --init --ipc=host --env-file .env multi-modal-api
-```
-
-For direct ASGI serving without Docker, see FastAPI deployment concepts and manual server docs; typically use Gunicorn with Uvicorn workers in production.
-
-***
-
-## 🔍 Test in Browser
-
-- Health check: http://localhost:8000/health
-- Routes: http://localhost:8000/
-- Swagger UI (if enabled by your setup): http://localhost:8000/docs
-
-***
-
-## ⚙ Environment Variables
-
-| Name                     | Required | Description |
-|--------------------------|----------|-------------|
-| OPENAI_API_KEY           | Required | Used for OpenAI fallback in code generation and Q&A  |
-| gemini_api_1..gemini_api_10 | Required | Gemini multi-key rotation for task breaking and extraction |
-| OCR_API_KEY              | Required | OCR.space key for image/PDF text extraction |
-| HORIZON_API              | Optional | Custom integration key (if used by your flows) |
-| GROK_API, GROK_FIX_API   | Optional | Custom integration keys (if used by your flows) |
-
-Note: If Java is missing, PDF extraction will be disabled/fail at runtime; ensure Java 8+ is installed for tabula-py.[6]
-
-***
-
-## 📄 Request Guidelines
-
-- Provide a questions.txt or include questions in a text form field to steer analysis.[7]
-- Upload relevant data files (CSV/JSON/HTML/PDF) and/or compressed archives; the service categorizes and processes contents automatically.[7]
-- For web scraping, include explicit URLs in the question text; the service attempts to extract data tables from those pages.[8][7]
-- For databases/Parquet/CSV over HTTP/S3, the service previews schemas using DuckDB with httpfs/parquet extensions loaded at runtime.[7]
-
-***
-
-## 🛡 Production Notes
-
-- Use a production process model (Gunicorn+Uvicorn workers) and set reasonable timeouts.[3][4][2]
-- Running Playwright in Docker: add --init and --ipc=host; run as non-root to keep Chromium sandboxing.[5]
-- Ensure Java 8+ is installed for tabula; consider setting tabula java_options (e.g., -Xmx512m) and page limits for large PDFs.[6]
-- Consider background workers for long-running scraping/OCR/PDF tasks to keep the API responsive.[2][3]
-
-***
-
-## 📜 License
-
-This project is licensed under the MIT License. See LICENSE.
-
-
-***
-
-
-
+**Built with ❤️ using FastAPI, LangChain, and Google Generative AI**
