@@ -2654,21 +2654,24 @@ async def system_diagnostics(
 
     return results
 
-# 1×1 transparent PNG fallback (if favicon.ico file not present)
-_FAVICON_FALLBACK_PNG = base64.b64decode(
+from fastapi import FastAPI, Response
+from fastapi.responses import FileResponse
+import os
+import base64
+
+app = FastAPI()
+
+# Tiny transparent PNG
+FALLBACK_PNG = base64.b64decode(
     "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO3n+9QAAAAASUVORK5CYII="
 )
 
-@app.get("/favicon.ico", include_in_schema=False)
+@app.get("/favicon.ico")
 async def favicon():
-    """
-    Serve favicon.ico if present in the working directory.
-    Otherwise return a tiny transparent PNG to avoid 404s.
-    """
-    path = "favicon.ico"
-    if os.path.exists(path):
-        return FileResponse(path, media_type="image/x-icon")
-    return Response(content=_FAVICON_FALLBACK_PNG, media_type="image/png")
+    if os.path.exists("favicon.ico"):
+        return FileResponse("favicon.ico", media_type="image/x-icon")
+    return Response(FALLBACK_PNG, media_type="image/png")
+
 
 
 if __name__ == "__main__":
