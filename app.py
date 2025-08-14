@@ -1,6 +1,6 @@
 from fastapi import FastAPI, UploadFile, File, Request, Form
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse,FileResponse,Response
 
 import uvicorn
 import base64
