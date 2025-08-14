@@ -17,7 +17,7 @@
 
 <!-- License & Repo -->
 [![MIT License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
-[![GitHub](https://img.shields.io/badge/GitHub-Repo-181717?logo=github&logoColor
+[![GitHub](https://img.shields.io/badge/GitHub-Repo-181717?logo=github&logoColor)
 
 
 ***
@@ -204,3 +204,4 @@ This project is licensed under the MIT License. See LICENSE.
 
 
 ***
+
