@@ -55,12 +55,14 @@ Note: Heavy tasks may be slow locally; for production hardening see Deployment n
 
 | Method | Endpoint     | Description |
 |--------|--------------|-------------|
-| POST   | /api/        | Submit analysis tasks with file uploads and/or text[7] |
-| GET    | /health      | System/process metrics and key config diagnostics[7] |
-| GET    | /            | Route listing and service info[7] |
-| GET    | /test_gemini | Test Gemini multi-key/multi-model path[7] |
-| GET    | /test_openai_call | Test OpenAI client fallback path[7] |
-| GET    | /test_ocr_call | Minimal live OCR call diagnostics[7] |
+| POST   | /api/        | Submit analysis tasks with file uploads and/or text |
+| GET    | /health      | System/process metrics and key config diagnostics |
+| GET    | /            | Route listing and service info |
+| GET    | /test_gemini_pro | Test Gemini multi-key/multi-model path |
+| GET    | /test_gemini | Test Gemini multi-key/Pro-model path |
+| GET    | /test_openai_call | Test OpenAI client fallback path |
+| GET    | /test_ocr_call | Minimal live OCR call diagnostics |
+| GET    | /system_diagnostics | Ultra-Advanced Project Diagnostics |
 
 ***
 
@@ -75,15 +77,15 @@ curl "http://localhost:8000/api/" \
 ```
 
 - Optional: send no files and just a question text body; the service can extract URLs and attempt scraping where appropriate.[8][7]
-- For images/PDFs, OCR and tabula are used if configured and available.[6][7]
+- For images/PDFs, OCR and tabula are used if configured and available.
 
 ***
 
 ## 🖥 Local Setup
 
 ### 1️⃣ Install system dependencies
-- Java 8+ required for tabula-py.[6]
-- Optional Playwright browsers: see Docker or run playwright install inside venv.[5]
+- Java 8+ required for tabula-py.
+- Optional Playwright browsers: see Docker or run playwright install inside venv.
 
 ```bash
 # Ubuntu/Debian (Java + build essentials)
@@ -204,5 +206,6 @@ This project is licensed under the MIT License. See LICENSE.
 
 
 ***
+
 
 
