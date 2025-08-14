@@ -1,4 +1,3 @@
----
 
 # 🌟 **TDS Project 2: Data Analyst Agent** — *AI-Powered Data Sidekick*
 
