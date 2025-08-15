@@ -40,6 +40,7 @@ gemini_api_10=your_api_key_here
 
 ```
 > ⚠ **if you don't have multiple gemini key just copy one key in all.
+---
 > ⚠ **Never commit your `.env` file** to GitHub. Add it to `.gitignore`.
 
 ---
