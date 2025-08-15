@@ -40,7 +40,7 @@ gemini_api_10=your_api_key_here
 LLM_TIMEOUT_SECONDS=240
 
 ```
-> ⚠ **if you don't have multiple gemini key just copy one key in all.
+> ⚠ **if you don't have multiple gemini key just copy one key in all. but my recommendation is used atleast two different key for fallback mechanism to work properly
 ---
 > ⚠ **Never commit your `.env` file** to GitHub. Add it to `.gitignore`.
 
@@ -113,7 +113,7 @@ docker run -p 8000:8000 --env-file .env tds-data-analyst
 
 | Variable                       | Description            | Default          | Required       |
 | ------------------------------ | ---------------------- | ---------------- | -------------- |
-| `gemini_api_1`…`gemini_api_10` | Google Gemini API keys | —                | ✅ (at least 1 but make copy of it in all variable) |
+| `gemini_api_1`......`gemini_api_10` | Google Gemini API keys | —                | ✅ (at least 1 but make copy of it in all variable) |
 | `LLM_TIMEOUT_SECONDS`          | LLM Max Time for task  | 240              | ❌              |
 | `PORT`                         | App port               | 8000             | ❌              |
 
