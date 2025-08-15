@@ -1,154 +1,143 @@
-# TDS Data Analyst - Railway Deployment Guide
 
-## Project Setup Complete! ✅
+# 🚄 **TDS Project 2 Data Analyst – Railway Deployment Guide**
 
-The project has been set up with all necessary deployment configurations for Railway.
+Easily deploy your **AI-powered Data Analyst Agent** to **Railway** in minutes.
+Follow these steps and your app will be live with a public URL.
 
-## Files Created
+---
 
-1. **`.env`** - Environment configuration file with placeholder for Google API key
-2. **`Dockerfile`** - Container configuration for Railway deployment
-3. **`railway.json`** - Railway-specific deployment configuration
-4. **`Procfile`** - Process file for Railway deployment
-5. **`runtime.txt`** - Python version specification
-6. **`.dockerignore`** - Files to exclude from Docker build
+## ✅ **What’s Already Set Up**
 
-## Deployment Instructions
+The repo includes all necessary Railway config files:
 
-### 1. Update Environment Variables
+| File            | Purpose                                       |
+| --------------- | --------------------------------------------- |
+| `.env`          | Stores environment variables (e.g., API keys) |
+| `Dockerfile`    | Defines container build                       |
+| `railway.json`  | Railway deployment configuration              |
+| `Procfile`      | Tells Railway how to start the app            |
+| `runtime.txt`   | Python version specification                  |
+| `.dockerignore` | Files to ignore during Docker build           |
 
-Before deploying, update your `.env` file with your actual Google API key:
+---
+
+## 🔑 **1. Configure Environment Variables**
+
+Create a `.env` file in your project root and add your details:
+
+```env
+# Google Gemini API Keys (Add 1–10 keys for load balancing if you don't have multiple key just paste your one key in all variable)
+gemini_api_1=your_api_key_here
+gemini_api_2=your_api_key_here
+gemini_api_3=your_api_key_here
+gemini_api_4=your_api_key_here
+gemini_api_5=your_api_key_here
+gemini_api_6=your_api_key_here
+gemini_api_7=your_api_key_here
+gemini_api_8=your_api_key_here
+gemini_api_9=your_api_key_here
+gemini_api_10=your_api_key_here
+
 ```
-GOOGLE_API_KEY=your_actual_google_api_key_here
-```
 
-### 2. Push to GitHub
+> ⚠ **Never commit your `.env` file** to GitHub. Add it to `.gitignore`.
+
+---
+
+## 📤 **2. Push Code to GitHub**
 
 ```bash
-cd /mnt/d/tds-project\ 2.0/Data-Analyst
+cd /path/to/project
 git init
 git add .
-git commit -m "Initial commit with Railway deployment configuration"
+git commit -m "Initial commit with Railway deployment config"
 git remote add origin https://github.com/your-username/your-repo.git
 git push -u origin main
 ```
 
-### 3. Deploy to Railway
+---
 
-#### Option A: Deploy via Railway Dashboard
-1. Go to [Railway.app](https://railway.app)
+## 🚀 **3. Deploy to Railway**
+
+### **Option A – Dashboard**
+
+1. Visit [railway.app](https://railway.app)
 2. Sign in with GitHub
-3. Click "New Project"
-4. Select "Deploy from GitHub repo"
-5. Choose your repository
-6. Railway will automatically detect the configuration
+3. **New Project → Deploy from GitHub**
+4. Select your repo
+5. Railway will auto-deploy
 
-#### Option B: Deploy via Railway CLI
+### **Option B – CLI**
+
 ```bash
-# Install Railway CLI
 npm install -g @railway/cli
-
-# Login to Railway
 railway login
-
-# Initialize project
 railway init
-
-# Link to GitHub repo
 railway link
-
-# Deploy
 railway up
 ```
 
-### 4. Configure Environment Variables on Railway
+---
 
-In Railway Dashboard:
-1. Go to your project
-2. Click on "Variables"
-3. Add the following:
-   - `GOOGLE_API_KEY`: Your Google Generative AI API key (REQUIRED)
-   - Other variables are optional (defaults are set in railway.json)
+## 🌍 **4. Add Environment Variables in Railway**
 
-### 5. Access Your Application
+1. Go to your Railway project
+2. Click **Variables**
+3. Add your Gemini keys & settings exactly as in `.env`
 
-Once deployed, Railway will provide you with a URL like:
-```
-https://your-app-name.up.railway.app
-```
+---
 
-## Local Testing
-
-To test the application locally:
+## 🧪 **5. Test Locally**
 
 ```bash
-# Activate virtual environment
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-
-# Run the application
+source venv/bin/activate   # Windows: venv\Scripts\activate
 uvicorn app:app --host 0.0.0.0 --port 8000
-
-# Or with Python directly
-python app.py
 ```
 
-Access at: http://localhost:8000
+Visit: **[http://localhost:8000](http://localhost:8000)**
 
-## Docker Testing (Optional)
+---
 
-To test the Docker container locally:
+## 🐳 **6. (Optional) Test with Docker**
 
 ```bash
-# Build the image
 docker build -t tds-data-analyst .
-
-# Run the container
 docker run -p 8000:8000 --env-file .env tds-data-analyst
 ```
 
-## Environment Variables
+---
 
-| Variable | Description | Default | Required |
-|----------|-------------|---------|----------|
-| `GOOGLE_API_KEY` | Google Generative AI API Key | - | Yes |
-| `PORT` | Application port | 8000 | No |
-| `MODEL_NAME` | AI Model to use | gemini-1.5-flash | No |
-| `TEMPERATURE` | Model temperature | 0.7 | No |
-| `MAX_TOKENS` | Max generation tokens | 2048 | No |
-| `REQUEST_TIMEOUT` | Request timeout (seconds) | 60 | No |
-| `API_TIMEOUT` | API timeout (seconds) | 30 | No |
+## ⚙ **Environment Variable Reference**
 
-## Troubleshooting
+| Variable                       | Description            | Default          | Required       |
+| ------------------------------ | ---------------------- | ---------------- | -------------- |
+| `gemini_api_1`…`gemini_api_10` | Google Gemini API keys | —                | ✅ (at least 1 but make copy of it in all variable) |
+| `LLM_TIMEOUT_SECONDS`          | LLM Max Time for task  | 240              | ❌              |
+| `PORT`                         | App port               | 8000             | ❌              |
 
-### Common Issues
+---
 
-1. **Module not found errors**: Ensure all dependencies are in `requirements.txt`
-2. **Port binding issues**: Railway automatically assigns a PORT environment variable
-3. **API key errors**: Verify your Google API key is correctly set in Railway variables
-4. **Build failures**: Check Docker logs in Railway dashboard
+## 🛠 **Troubleshooting**
 
-### Logs
+**Common Issues**
 
-View application logs in Railway:
+* `Module not found` → Check `requirements.txt`
+* Port conflict → Use Railway’s `PORT` variable in architecture => project=> setting => networking => edit =>select default port (uvicorn)
+* API key errors → Ensure keys are correct in Railway Variables
+* Build fails → See Railway build logs
+
+**View Logs**
+
 ```bash
 railway logs
 ```
 
-Or in the Railway dashboard under "Deployments" → "View Logs"
+---
 
-## Features
+## 📚 **Helpful Links**
 
-- 📊 Advanced data analysis with AI
-- 📈 Interactive visualizations
-- 🤖 Google Gemini integration
-- 📁 Multiple file format support (CSV, Excel, JSON)
-- 🔍 Automated insights generation
-- 📊 Statistical analysis
-- 🎨 Customizable charts and graphs
+* 📖 [Railway Docs](https://docs.railway.app)
+* 🤖 [Google AI Docs](https://ai.google.dev)
 
-## Support
+---
 
-For issues or questions:
-- Check the [original repository](https://github.com/22f3000359/Data-Analyst)
-- Railway documentation: https://docs.railway.app
-- Google AI documentation: https://ai.google.dev
