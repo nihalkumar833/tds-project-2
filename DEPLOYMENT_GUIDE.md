@@ -37,6 +37,7 @@ gemini_api_7=your_api_key_here
 gemini_api_8=your_api_key_here
 gemini_api_9=your_api_key_here
 gemini_api_10=your_api_key_here
+LLM_TIMEOUT_SECONDS=240
 
 ```
 > ⚠ **if you don't have multiple gemini key just copy one key in all.
